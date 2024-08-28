@@ -42,7 +42,8 @@ class Solution {
     }
     
     static int[] dijkstra(int n, int start) {
-        PriorityQueue<Node> pq = new PriorityQueue<>((e1, e2) -> e1[1] - e2[1]);
+        PriorityQueue<Node> pq = new PriorityQueue<>((e1, e2) -> e1.cost - e2.cost);
+
         int[] dist = new int[n + 1];
         
         Arrays.fill(dist, Integer.MAX_VALUE);
