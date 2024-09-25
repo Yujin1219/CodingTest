@@ -3,13 +3,13 @@ import java.util.*;
 public class Solution {
     public static int[] solution(String[] id_list, String[] report, int k) {
 
-        int listLen = id_list.length; // id_list의 길이
+        int len = id_list.length; // id_list의 길이
         HashMap<String, Integer> indexMap = new HashMap<>(); // 유저 이름과 인덱스를 저장
         HashMap<String, HashSet<String>> reportMap = new HashMap<>(); // 신고당한 사람과 신고한 사람들 저장
-        int[] mailCountArr = new int[listLen]; // 메일 전송 개수를 저장하는 배열
+        int[] mailCountArr = new int[len]; // 메일 전송 개수를 저장하는 배열
 
         // 유저별 인덱스 설정
-        for (int i = 0; i < listLen; i++) {
+        for (int i = 0; i < len; i++) {
             indexMap.put(id_list[i], i); // 유저 이름을 키로 하고 인덱스를 값으로 저장
         }
 
