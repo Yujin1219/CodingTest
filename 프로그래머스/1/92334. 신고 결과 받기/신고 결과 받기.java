@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 public class Solution {
     public static int[] solution(String[] id_list, String[] report, int k) {
