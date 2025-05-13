@@ -51,3 +51,60 @@
 - 그렇지 않으면 → N = N - 1
 - 연산 횟수를 1 증가
 - N = 0이 되면 연산 횟수를 출력
+
+### 코드 설명
+```java
+Scanner sc = new Scanner(System.in);
+int N = sc.nextInt();
+int count = 0;
+```
+
+- 사용자로부터 N을 입력 받음
+- 연산 횟수를 카운트하기 위해 `count`를 0으로 초기화
+
+```java
+String strN = String.valueOf(N);
+if (strN.contains("1")) {
+```
+
+- 현재 숫자 N을 문자열로 바꿔서 `1`이 포함되어 있는지 확인
+- 1이 있으면 1 제거 , 없으면 -1
+
+```java
+int index = strN.indexOf('1');
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < strN.length(); i++) {
+    if (i != index) sb.append(strN.charAt(i));
+}
+```
+
+- 가장 앞쪽의 1 위치인 `index`를 첮음
+- 그 위치의 문자를 제외하고 나머지 문자들은 `StringBuilder`로 다시 이어붙임
+    
+    → 1을 하나 지운 숫자가 완성됨
+    
+
+```java
+String resultStr = sb.toString().replaceFirst("^0+", "");
+```
+
+- 어떻게 0으로 시작하면 지우지 고민하다가 정규표현식을 사용해도 된다는 걸 보고…
+- 정규표현식 사용
+- `^0+` → **문자열 처음부터 연속된 0 제거**
+- `StringBuilder` 객체인 `sb`를 `toString()`으로 문자열로 바꿈
+
+```java
+N = resultStr.isEmpty() ? 0 : Integer.parseInt(resultStr);
+```
+
+- 만약 모든 숫자가 지워져서 빈 문자열이면 N = 0
+- 아니면 문자열을 숫자로 변환해서 N에 저장
+
+```java
+else {
+    N--;
+}
+```
+
+- '1'이 아예 없으면 -1 연산만 가능
+- `N--`으로 1을 빼줌
