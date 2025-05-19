@@ -75,10 +75,10 @@ public class Main {
         // 최소 조작 횟수 구하기
         int result = 0;
         for (int bulb : bulbs) { // bulbs : 현재 전구의 원래 주기 값
-		        // 한 전구에 대해 최소로 변경해야하는 회수를 저장하는 변수
+            // 한 전구에 대해 최소로 변경해야하는 회수를 저장하는 변수
             int minChange = Integer.MAX_VALUE; 
             for (int divisor : divisors) {
-		            // 현재 전구 주기와 약수 간의 절댓값 차이를 구함 -> 두 값의 차 = 조작 회수
+                // 현재 전구 주기와 약수 간의 절댓값 차이를 구함 -> 두 값의 차 = 조작 회수
                 int diff = Math.abs(bulb - divisor); 
                 minChange = Math.min(minChange, diff); // 최소값으로 갱신
             }
