@@ -36,3 +36,69 @@
 
  <p>첫째 줄에 가능한 차량 번호판의 개수를 1,000,000,009로 나눈 나머지를 출력한다.</p>
 
+# 💡문제풀이
+
+### 문제 이해
+
+- 차량 번호판 형식이 문자열로 주어짐 (c, d로 구성됨)
+    - c: 알파벳 자리 → 가능한 경우의 수: 26개 (a~z)
+    - d: 숫자 자리 → 가능한 경우의 수: 10개 (0~9)
+- 같은 종류의 자리가 연속될 경우, 이전 값과 중복되면 안 됨
+    - 만약에 cc 가 나오면, 두 번째 c는 첫 번째와 다른 문자여야 하므로 경우의 수: `26 × 25`
+- 출력: 결과를 1,000,000,009로 나눈 나머지
+
+### 문제 풀이 방법
+
+- 현재 자리가 이전 문자와 같으면
+    - 가능한 경우의 수는 중복 제거
+        - d면 10 → 9가지 (앞 숫자와 다르게)
+        - c면 26 → 25가지
+- 이전 자리와 다르면
+    - 중복 고려 X → 전체 가능성
+        - d → 10가지, c → 26가지
+- 결과는 매번 곱셈으로 누적 후 나누기
+
+### 코드
+
+```java
+import java.util.Scanner; 
+
+public class Main {
+    static final int MOD = 1_000_000_009; 
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in); 
+        String pattern = sc.nextLine(); 
+
+        long result = 1; 
+
+        // 번호판 형식의 각 자리를 순회
+        for (int i = 0; i < pattern.length(); i++) {
+            char current = pattern.charAt(i); // 현재 자리
+            
+            int choices = 0; // 현재 자리에 가능한 경우의 수
+
+            // 현재 자리가 문자 자리일 경우
+            if (current == 'c') {
+                choices = 26; // 알파벳 26가지 가능
+            } 
+            // 현재 자리가 숫자 자리일 경우
+            else if (current == 'd') {
+                choices = 10; // 숫자 10가지 가능
+            }
+
+            // 이전 문자와 현재 문자가 같으면 중복 제거
+            if (i > 0 && pattern.charAt(i) == pattern.charAt(i - 1)) {
+                choices -= 1; // 같은 종류 연속 시 중복 제거 
+            }
+
+            // 가능한 경우의 수를 누적 계산, 나누기
+            result = (result * choices) % MOD;
+        }
+
+        System.out.println(result);
+    }
+}
+
+```
+
