@@ -32,3 +32,18 @@
 
  <p>모든 전구에 전원을 연결하고 <mjx-container class="MathJax" jax="CHTML" style="font-size: 109%; position: relative;"><mjx-math class="MJX-TEX" aria-hidden="true"><mjx-mi class="mjx-i"><mjx-c class="mjx-c1D447 TEX-I"></mjx-c></mjx-mi></mjx-math><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>T</mi></math></mjx-assistive-mml><span aria-hidden="true" class="no-mathjax mjx-copytext">$T$</span></mjx-container>초가 지난 시각에 모든 전구가 동시에 반짝이게 하려면 이 과정을 최소 몇 번 수행해야 하는지 출력한다.</p>
 
+# 💡문제 풀이
+
+### 문제 이해
+
+- 전구 주기가 t라면 t, 2t, 3t,... 시점에 반짝임
+- 모든 전구가 T초 시점에 동시에 반짝이어야 함 → 즉, 모든 전구의 주기가 T의 약수여야 함
+- 전구 하나의 주기는 1초씩만 증가 or 감소 가능 (단, 1초 아래로는 감소 불가)
+- 최소 조작 횟수를 구해야 함
+
+### 문제 풀이 방법
+
+- T의 약수를 모두 구함
+- 각 전구마다 가장 가까운 T의 약수로 바꾸는 비용(조작 횟수)를 계산
+- 전체 조합에서 최소 조작 횟수를 선택
+- 모든 전구 : 가장 가까운 T의 약수로 바꾸는 최소 횟수 → min(abs(현재 주기 - 약수))
