@@ -47,3 +47,46 @@
 - 각 전구마다 가장 가까운 T의 약수로 바꾸는 비용(조작 횟수)를 계산
 - 전체 조합에서 최소 조작 횟수를 선택
 - 모든 전구 : 가장 가까운 T의 약수로 바꾸는 최소 횟수 → min(abs(현재 주기 - 약수))
+
+### 코드
+```java
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();   // 전구 개수
+        int T = sc.nextInt();   // 목표 시점
+
+        int[] bulbs = new int[N];
+        for (int i = 0; i < N; i++) {
+            bulbs[i] = sc.nextInt();
+        }
+
+        // T의 약수 구하기
+        ArrayList<Integer> divisors = new ArrayList<>();
+        for (int i = 1; i <= T; i++) {
+            if (T % i == 0) {
+                divisors.add(i);
+            }
+        }
+
+        // 최소 조작 횟수 구하기
+        int result = 0;
+        for (int bulb : bulbs) { // bulbs : 현재 전구의 원래 주기 값
+		        // 한 전구에 대해 최소로 변경해야하는 회수를 저장하는 변수
+            int minChange = Integer.MAX_VALUE; 
+            for (int divisor : divisors) {
+		            // 현재 전구 주기와 약수 간의 절댓값 차이를 구함 -> 두 값의 차 = 조작 회수
+                int diff = Math.abs(bulb - divisor); 
+                minChange = Math.min(minChange, diff); // 최소값으로 갱신
+            }
+            result += minChange; // 모든 전구에 대해 반복 -> 전체 최소 변경 횟수 계산
+        }
+
+        System.out.println(result);
+    }
+}
+
+```
