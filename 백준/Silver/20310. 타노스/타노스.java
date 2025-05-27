@@ -7,17 +7,14 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
 
-        int totalZero = 0;
-        int totalOne = 0;
-
-        // 전체 0, 1 개수 세기
+        int totalZero = 0, totalOne = 0;
         for (char c : input.toCharArray()) {
             if (c == '0') totalZero++;
             else totalOne++;
         }
 
         int removeOne = totalOne / 2;
-        int removeZero = totalZero / 2;
+        int keepZero = totalZero / 2;
 
         StringBuilder temp = new StringBuilder();
 
@@ -30,19 +27,23 @@ public class Main {
             }
         }
 
-        StringBuilder answer = new StringBuilder();
+        StringBuilder result = new StringBuilder();
+        int zeroCount = 0;
 
-        // 뒤에서부터 0 제거
-        for (int i = temp.length() - 1; i >= 0; i--) {
+        // 앞에서부터 순서대로 0 keepZero개만 남김
+        for (int i = 0; i < temp.length(); i++) {
             char c = temp.charAt(i);
-            if (c == '0' && removeZero > 0) {
-                removeZero--;
+            if (c == '0') {
+                if (zeroCount < keepZero) {
+                    result.append('0');
+                    zeroCount++;
+                }
+                // 아니라면 생략 (사실상 제거)
             } else {
-                answer.append(c);
+                result.append('1');
             }
         }
 
-        // 역순으로 저장했으므로 뒤집어서 출력
-        System.out.println(answer.reverse().toString());
+        System.out.println(result.toString());
     }
 }
